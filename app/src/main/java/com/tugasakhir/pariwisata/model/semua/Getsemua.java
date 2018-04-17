@@ -1,0 +1,57 @@
+package com.tugasakhir.pariwisata.model.semua;
+
+import android.content.Context;
+import android.util.Log;
+
+import com.google.gson.Gson;
+import com.leo.simplearcloader.SimpleArcDialog;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.tugasakhir.pariwisata.loopj.Request;
+import com.tugasakhir.pariwisata.loopj.Url;
+import com.tugasakhir.pariwisata.model.Hasil;
+import com.tugasakhir.pariwisata.model.database.LocalData;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
+
+/**
+ * Created by Silva on 15/02/2018.
+ */
+
+public class Getsemua {
+    public void get(Context context, final Hasil hasil) {
+        final SimpleArcDialog dialog = new SimpleArcDialog(context);
+        dialog.setTitle("loading...");
+        dialog.show();
+        Request.get(Url.SEMUA, null, new AsyncHttpResponseHandler() {
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Log.d("hasil", "onSuccess: " + new String(responseBody));
+                try {
+                    Gson gson = new Gson();
+                    JSONObject object = new JSONObject(new String(responseBody));
+                    JSONObject semuaList = object.getJSONObject("item");
+                    for (int i = 0; i < semuaList.length(); i++) {
+                        LocalData.getSemuaList().add(gson.fromJson(semuaList.getJSONObject(String.valueOf(i)).toString(), Semua.class));
+                    }
+                    hasil.sukses();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                hasil.gagal();
+            }
+        });
+    }
+}

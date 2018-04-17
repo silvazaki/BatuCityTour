@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Pariwisata Batu</string>
+    <string name="title_activity_main2">Pariwisata Batu</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <!-- - - - - - - ABOUT CONFIG- - - - - - - - -->
+    <string name="facebook_id">ihsan.badruzaman</string>
+    <string name="twitter_id">ihsan_bz</string>
+    <string name="instagram_id">ihsan_bz</string>
+    <string name="email_id">ihsanbadru@gmail.com</string>
+    <string name="youtube_id">gaexjro</string>
+    <string name="url">blogger-dot-blogspot.blogspot.com</string>
+    <string name="app_description">Visit The City is an application of information of important places (Point of Interest) for the City. This application can help the local tourists or from out of town to find places to visit online or offline</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hint_search">Pencarian</string>
+
+</resources>

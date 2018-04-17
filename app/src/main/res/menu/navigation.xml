@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_allplace"
+            android:icon="@drawable/ic_all_places"
+            android:title="Semua Wisata" />
+
+        <item
+            android:id="@+id/nav_categories"
+            android:icon="@drawable/ic_categories"
+            android:title="Kategori Wisata" />
+        <item
+            android:id="@+id/nav_map"
+            android:icon="@drawable/ic_categories"
+            android:title="Map Online" />
+
+    </group>
+
+    <!--<group android:checkableBehavior="none">-->
+        <!--<item android:title="Pengaturan">-->
+            <!--<menu>-->
+                <!--<group android:checkableBehavior="single">-->
+                    <!--<item-->
+                        <!--android:id="@+id/nav_setting"-->
+                        <!--android:icon="@drawable/ic_my_location"-->
+                        <!--android:title="Lokasi Saya" />-->
+                <!--</group>-->
+            <!--</menu>-->
+        <!--</item>-->
+    <!--</group>-->
+
+    <group android:checkableBehavior="none">
+        <item android:title="Lainnya">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_about"
+                        android:icon="@drawable/ic_about"
+                        android:title="Tentang Kami" />
+                    <item
+                        android:id="@+id/nav_logout"
+                        android:icon="@drawable/ic_close"
+                        android:title="Keluar" />
+                </group>
+            </menu>
+        </item>
+    </group>
+
+
+</menu>
