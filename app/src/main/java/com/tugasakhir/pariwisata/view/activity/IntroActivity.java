@@ -199,7 +199,6 @@ public class IntroActivity extends AppCompatActivity  implements GoogleApiClient
 
     public void cariLokasi() {
         if (!runtime_permissions()) {
-
             LocationManager manager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
             boolean statusOfGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
             Log.d("shit", "onClick: " + statusOfGPS);
