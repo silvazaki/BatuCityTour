@@ -3,13 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_bg"
-    tools:context="com.tugasakhir.pariwisata.view.fragment.AllPlacesFragment">
+    tools:context="com.silva.pariwisata.view.fragment.AllPlacesFragment">
 
     <android.support.v4.widget.SwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swiperefresh"
-        android:paddingTop="2dp"
-        android:layout_margin="10dp"
+        android:paddingTop="12dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
