@@ -14,6 +14,7 @@ import java.util.List;
 public class LocalData {
 
     public static List<Kategori> kategoriList = new ArrayList<>();
+
     public static List<Kategori> getKategoriList() {
         return kategoriList;
     }
@@ -26,5 +27,11 @@ public class LocalData {
 
     public static void setSemuaList(List<Semua> semuaList) {
         LocalData.semuaList = semuaList;
+    }
+
+    public static List<Semua> semuaKategori = new ArrayList<>();
+
+    public static List<Semua> getSemuaKategori() {
+        return semuaKategori;
     }
 }

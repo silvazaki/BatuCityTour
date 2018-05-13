@@ -3,6 +3,7 @@ package com.silva.pariwisata.view.fragment;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -28,6 +29,7 @@ import com.silva.pariwisata.model.database.LocalData;
 import com.silva.pariwisata.model.kategori.Getkategori;
 import com.silva.pariwisata.model.semua.Getsemua;
 import com.silva.pariwisata.model.semua.Semua;
+import com.silva.pariwisata.view.activity.DetailTempatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +38,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AllPlacesFragment extends Fragment {
+public class ListSemuaTempatFragment extends Fragment {
 
     private View view;
     private ListSemuaTempatAdapter adapter;
@@ -46,7 +48,7 @@ public class AllPlacesFragment extends Fragment {
     String TAG ="hasil2";
     List<Semua> data = new ArrayList<>();
 
-    public AllPlacesFragment() {
+    public ListSemuaTempatFragment() {
         // Required empty public constructor
     }
 
@@ -60,22 +62,25 @@ public class AllPlacesFragment extends Fragment {
                 android.R.color.holo_red_light);
     }
 
+    public void getData() {
+        new Getsemua().get(getContext(), new Hasil() {
+            @Override
+            public void sukses() {
+                Log.e(TAG, "sukses: ");
+                data.clear();
+                data.addAll(LocalData.getSemuaList());
+                adapter.notifyDataSetChanged();
+            }
+            @Override
+            public void gagal() {
+                Log.d(TAG, "gagal: ");
+            }
+        });
+    }
+
     public void getSemuaListTempat() {
         if (LocalData.getSemuaList().isEmpty()) {
-            new Getsemua().get(getContext(), new Hasil() {
-                @Override
-                public void sukses() {
-                    Log.e(TAG, "sukses: ");
-                    data.clear();
-                    data.addAll(LocalData.getSemuaList());
-                    adapter.notifyDataSetChanged();
-                }
-
-                @Override
-                public void gagal() {
-                    Log.d(TAG, "gagal: ");
-                }
-            });
+            getData();
         } else {
             Log.d(TAG, "getSemuaListTempat: ");
             data.addAll(LocalData.getSemuaList());
@@ -90,25 +95,13 @@ public class AllPlacesFragment extends Fragment {
     }
 
     private void onClick() {
-        list.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), list, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-//                Intent intent = new Intent(getActivity().getApplicationContext(), DetailProdukActivity.class);
-//                intent.putExtra("nama", String.valueOf(data.get(position).getNama()));
-//                startActivity(intent);
-            }
-
-            @Override
-            public void onLongItemClick(View view, int position) {
-
-            }
-        }));
         mySwipeRefreshLayout.setOnRefreshListener(
                 new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
                         data.clear();
-                        getSemuaListTempat();
+                        LocalData.getSemuaList().clear();
+                        getData();
                         setSemuaListTempat();
                         mySwipeRefreshLayout.setRefreshing(false);
                     }
@@ -119,37 +112,37 @@ public class AllPlacesFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main, menu);
-        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        final SearchView searchView = (SearchView) menu.findItem(R.id.action_search)
-                .getActionView();
-        View v = searchView.findViewById(android.support.v7.appcompat.R.id.search_plate);
-        v.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.transparent_color));
-        searchView.setQueryHint(getString(R.string.hint_search));
-        searchView.setSearchableInfo(searchManager
-                .getSearchableInfo(getActivity().getComponentName()));
-        searchView.setIconifiedByDefault(true);
-
-        SearchView.OnQueryTextListener textChangeListener = new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextChange(String query) {
-                query = query.toLowerCase();
-                callSearch(query);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                query = query.toLowerCase();
-                callSearch(query);
-                searchView.clearFocus();
-                return true;
-            }
-
-            public void callSearch(String query) {
-//                mAllPlacesAdapter.getFilter().filter(query);
-            }
-        };
-        searchView.setOnQueryTextListener(textChangeListener);
+//        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+//        final SearchView searchView = (SearchView) menu.findItem(R.id.action_search)
+//                .getActionView();
+//        View v = searchView.findViewById(android.support.v7.appcompat.R.id.search_plate);
+//        v.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.transparent_color));
+//        searchView.setQueryHint(getString(R.string.hint_search));
+//        searchView.setSearchableInfo(searchManager
+//                .getSearchableInfo(getActivity().getComponentName()));
+//        searchView.setIconifiedByDefault(true);
+//
+//        SearchView.OnQueryTextListener textChangeListener = new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextChange(String query) {
+//                query = query.toLowerCase();
+//                callSearch(query);
+//                return true;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                query = query.toLowerCase();
+//                callSearch(query);
+//                searchView.clearFocus();
+//                return true;
+//            }
+//
+//            public void callSearch(String query) {
+////                mAllPlacesAdapter.getFilter().filter(query);
+//            }
+//        };
+//        searchView.setOnQueryTextListener(textChangeListener);
     }
 
     @Override

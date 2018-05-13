@@ -10,7 +10,7 @@ import com.silva.pariwisata.model.database.PrefManager;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static int splashInterval = 500;
+    private static int splashInterval = 1000;
 
     private PrefManager prefManager;
     @Override

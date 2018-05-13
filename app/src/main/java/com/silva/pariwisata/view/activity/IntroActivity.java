@@ -50,12 +50,12 @@ import org.json.JSONObject;
 
 public class IntroActivity extends AppCompatActivity  implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
-    GoogleApiClient mGoogleApiClient;
-    Location mLastLocation;
-    LocationRequest mLocationRequest;
-    private String latitude, longitude, kotaSekarang;
-    private PrefManager prefManager;
-    private ProgressDialog myDialog;
+        GoogleApiClient mGoogleApiClient;
+        Location mLastLocation;
+        LocationRequest mLocationRequest;
+        private String latitude, longitude;
+        private PrefManager prefManager;
+        private ProgressDialog myDialog;
 
 
     @Override
@@ -170,8 +170,10 @@ public class IntroActivity extends AppCompatActivity  implements GoogleApiClient
                 prefManager.setPrefSring("longitude", longitude);
                 prefManager.setPrefSring("refresh", "y");
                 myDialog.dismiss();
-                getKota("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longitude + "&sensor=true");
-                prefManager.setFirstTimeLaunch(false);
+
+                Toast.makeText(getApplicationContext(), "Lokasi ditemukan", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(IntroActivity.this, MainActivity.class));
+                finish();                prefManager.setFirstTimeLaunch(false);
                 LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
             } else {
                 /*if there is no last known location. Which means the device has no data for the loction currently.
@@ -221,72 +223,6 @@ public class IntroActivity extends AppCompatActivity  implements GoogleApiClient
             }
 
         }
-    }
-
-
-    private void getKota(String link) {
-        Log.d("getkota", "getKota: " + link);
-        prefManager = new PrefManager(getApplicationContext());
-        prefManager.setPrefSring("kota", "");
-        final ProgressDialog progressDialog2 = new ProgressDialog(this);
-        progressDialog2.setMessage("Mencocokkan lokasi...");
-        progressDialog2.show();
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        final JsonObjectRequest jArr = new JsonObjectRequest(Request.Method.GET,
-                link, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d("errorjsonn1", response.toString());
-                try {
-                    JSONArray array1 = response.getJSONArray("results");
-                    JSONObject object = array1.getJSONObject(0);
-                    JSONArray array2 = object.getJSONArray("address_components");
-
-                    for (int i = 0; i < array2.length(); i++) {
-                        JSONObject obj = array2.getJSONObject(i);
-
-                        JSONArray array = obj.getJSONArray("types");
-                        if (array.getString(0).equalsIgnoreCase("administrative_area_level_2")) {
-                            prefManager.setPrefSring("kota", obj.getString("short_name"));
-                            prefManager.setPrefSring("kota_long", obj.getString("long_name"));
-                            Log.d("hasil", "onResponse: " + prefManager.getPrefSring("kota"));
-                        }
-                        if (prefManager.getPrefSring("kota").equalsIgnoreCase("")) {
-                            if (array.getString(0).equalsIgnoreCase("administrative_area_level_1")) {
-                                prefManager.setPrefSring("kota", obj.getString("short_name"));
-                                prefManager.setPrefSring("kota_long", obj.getString("long_name"));
-                                Log.d("hasil", "onResponse: " + prefManager.getPrefSring("kota"));
-                            }
-                        }
-                        if (array.getString(0).equalsIgnoreCase("country")) {
-                            prefManager.setPrefSring("negara", obj.getString("long_name"));
-                            break;
-                        }
-
-                    }
-                    progressDialog2.dismiss();
-                    Toast.makeText(getApplicationContext(), "Lokasi ditemukan", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(IntroActivity.this, MainActivity.class));
-                    finish();
-
-                } catch (JSONException e) {
-                    progressDialog2.dismiss();
-                    getKota("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longitude + "&sensor=true");
-                    e.printStackTrace();
-                    Log.d("errorjsonn", String.valueOf(e));
-                }
-            }
-
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d("errorjsonn2" + error.getMessage());
-                Log.d("errorjsonn33", String.valueOf(error));
-                progressDialog2.dismiss();
-                Toast.makeText(getApplicationContext(), "Connection Failed", Toast.LENGTH_LONG).show();
-            }
-        });
-        requestQueue.add(jArr);
     }
 
     public void showAlertDialog(String title, String message) {

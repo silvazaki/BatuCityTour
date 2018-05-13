@@ -14,9 +14,6 @@ public class Semua {
     @SerializedName("detail_wisata")
     @Expose
     private String detail_wisata;
-    @SerializedName("id_kategori")
-    @Expose
-    private String id_kategori;
     @SerializedName("nama_wisata")
     @Expose
     private String nama_wisata;
@@ -41,6 +38,28 @@ public class Semua {
     @SerializedName("harga_tiket")
     @Expose
     private String harga_tiket;
+    @SerializedName("jenis_kategori")
+    @Expose
+    private String jenis_kategori;
+    @SerializedName("nama_kategori")
+    @Expose
+    private String nama_kategori;
+
+    public String getJenis_kategori() {
+        return jenis_kategori;
+    }
+
+    public void setJenis_kategori(String jenis_kategori) {
+        this.jenis_kategori = jenis_kategori;
+    }
+
+    public String getNama_kategori() {
+        return nama_kategori;
+    }
+
+    public void setNama_kategori(String nama_kategori) {
+        this.nama_kategori = nama_kategori;
+    }
 
     public String getId_wisata() {
         return id_wisata;
@@ -56,14 +75,6 @@ public class Semua {
 
     public void setDetail_wisata(String detail_wisata) {
         this.detail_wisata = detail_wisata;
-    }
-
-    public String getId_kategori() {
-        return id_kategori;
-    }
-
-    public void setId_kategori(String id_kategori) {
-        this.id_kategori = id_kategori;
     }
 
     public String getNama_wisata() {

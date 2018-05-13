@@ -15,6 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme.Base">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
         <activity
             android:name=".view.activity.SplashActivity"
             android:launchMode="singleTask"
@@ -36,11 +40,17 @@
         <activity
             android:name=".view.activity.MainActivity"
             android:label="@string/title_activity_main2"
-            android:theme="@style/MyMaterialTheme.Base"></activity>
+            android:theme="@style/MyMaterialTheme.Base" />
         <activity
             android:name=".view.activity.DetailTempatActivity"
             android:label="@string/title_activity_detail_tempat"
-            android:theme="@style/MyMaterialTheme.Base"></activity>
+            android:theme="@style/MyMaterialTheme.Base" />
+        <activity
+            android:name=".view.activity.KategoriTempatActivity"
+            android:label="@string/title_activity_detail_tempat"
+            android:theme="@style/MyMaterialTheme.Base" />
+        <activity android:name=".view.activity.MapsActivity" />
+        <activity android:name=".view.activity.TentangActivity"></activity>
     </application>
 
 </manifest>

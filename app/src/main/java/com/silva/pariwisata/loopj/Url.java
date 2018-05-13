@@ -7,7 +7,8 @@ package com.silva.pariwisata.loopj;
 public class Url {
 
 
-    public static final String BASE_URL = "http://dares.or.id/wisata/";
-    public static final String KATEGORI = "list_kategori_wisata.php";
-    public static final String SEMUA = "list_semua_wisata.php";
+    public static final String BASE_URL = "http://tugasakhirgis.000webhostapp.com/";
+    public static final String KATEGORI = "wisata/list_kategori_wisata.php";
+    public static final String KATEGORI2 = "wisata/list_semua_wisata2.php?id_kategori=";
+    public static final String SEMUA = "wisata/list_semua_wisata.php";
 }

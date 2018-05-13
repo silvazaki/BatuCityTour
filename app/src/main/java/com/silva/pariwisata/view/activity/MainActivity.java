@@ -1,6 +1,7 @@
 package com.silva.pariwisata.view.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -21,13 +22,15 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.silva.pariwisata.R;
-import com.silva.pariwisata.view.fragment.AllPlacesFragment;
+import com.silva.pariwisata.view.fragment.ListSemuaTempatFragment;
 import com.silva.pariwisata.view.fragment.KategoriFragment;
+import com.silva.pariwisata.view.fragment.MapFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private boolean doubleBackToExitPressedOnce =false;
+    private boolean doubleBackToExitPressedOnce = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,13 +53,13 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_dashboard);
+//        getSupportActionBar().setHomeButtonEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_dashboard);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView =  findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        changeFragment(new AllPlacesFragment());
+        changeFragment(new KategoriFragment(), "Kategori Wisata");
     }
 
     public void Exit() {
@@ -78,7 +81,8 @@ public class MainActivity extends AppCompatActivity
         alert.show();
     }
 
-    public void changeFragment(Fragment fragment) {
+    public void changeFragment(Fragment fragment, String title) {
+        getSupportActionBar().setTitle(title);
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft
@@ -111,21 +115,32 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                startActivity(new Intent(getApplicationContext(), IntroActivity.class));
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_allplace) {
-            changeFragment(new AllPlacesFragment());
+            changeFragment(new ListSemuaTempatFragment(), "Semua Wisata");
         } else if (id == R.id.nav_categories) {
-            changeFragment(new KategoriFragment());
+            changeFragment(new KategoriFragment(), "Kategori Wisata");
+        } else if (id == R.id.nav_map) {
+            changeFragment(new MapFragment(), "Peta Wisata");
         } else if (id == R.id.nav_close) {
             Exit();
+        } else if (id ==R.id.nav_about) {
+            Intent intent = new Intent(getApplicationContext(), TentangActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

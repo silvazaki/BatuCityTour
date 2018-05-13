@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ActionBarThemeOverlay">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_tool"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="@android:color/white"
+            app:expandedTitleGravity="center|bottom"
+            app:expandedTitleMarginBottom="@dimen/expanded_title_margin_bottom"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:scrimAnimationDuration="500"
+            app:statusBarScrim="@color/colorPrimaryDark">
+
+            <ImageView
+                android:id="@+id/backdrop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_app_bar"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax"
+                android:transitionName="backgroundCategories"
+                app:layout_collapseParallaxMultiplier="0.7" />
+
+            <ImageView
+                android:id="@+id/imageCategory"
+                android:layout_width="@dimen/app_bar_image_wh"
+                android:layout_height="@dimen/app_bar_image_wh"
+                android:layout_gravity="center"
+                android:fitsSystemWindows="true"
+                android:scaleType="fitXY"
+                android:shadowColor="@android:color/black"
+                android:shadowDx="-2"
+                android:shadowDy="-2"
+                android:shadowRadius="10"
+                android:transitionName="imgCategory"
+                android:src="@drawable/placeholder"
+                app:layout_collapseMode="parallax"/>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/transparent_color"
+                android:minHeight="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                android:theme="@style/ActionBarThemeOverlay" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_kategori_tempat2" />
+</android.support.design.widget.CoordinatorLayout>

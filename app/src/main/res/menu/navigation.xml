@@ -15,7 +15,7 @@
             android:title="Kategori Wisata" />
         <item
             android:id="@+id/nav_map"
-            android:icon="@drawable/ic_categories"
+            android:icon="@drawable/ic_map"
             android:title="Map Online" />
 
     </group>

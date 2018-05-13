@@ -37,4 +37,7 @@
 
     <color name="black_transparent_1">#80000000</color>
     <drawable name="black_transparent_2">#B4000000</drawable>
+
+    <color name="colorRouteLine">#FF4081</color>
+    <color name="about_item_text_color">#7c7c7c</color>
 </resources>
