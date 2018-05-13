@@ -1,10 +1,10 @@
-# UberCarAnimation
+# CarAnimation
 A demo application which demonstrates movement of car on map developed after inspiration from Uber.
 <br><br>
 # Demo
-<img src="https://user-images.githubusercontent.com/12881364/29244386-7f164cd6-7fd4-11e7-9d1a-13af7ee237ba.gif"/>
+<img src="https://github.com/silvazaki/BatuCityTour.git/car-animation.gif"/>
 <br>
-Youtube Link: https://www.youtube.com/watch?v=JIs4kLZ8qQI
+Youtube Link: ""
 <br><br>
 APIs and Libraries used
 <UL>
