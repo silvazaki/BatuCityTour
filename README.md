@@ -2,6 +2,10 @@
 Demo Aplikasi tentang pariwisata dengan animasi mobil berjalan
 <br><br>
 # Demo
+<img src="https://github.com/silvazaki/BatuCityTour/blob/master/batu-guide.gif"/>
+<br>
+<br><br>
+# Demo
 <img src="https://github.com/silvazaki/BatuCityTour/blob/master/car-animation.gif"/>
 <br>
 Youtube Link: ""
