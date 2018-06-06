@@ -1,0 +1,8 @@
+List semua wisata 
+http://tugasakhirgis.000webhostapp.com/wisata/list_kategori_wisata.php
+
+List kategori wisata
+http://tugasakhirgis.000webhostapp.com/wisata/list_kategori_wisata.php
+
+Detail Wisata
+http://tugasakhirgis.000webhostapp.com/wisata/list_semua_wisata2.php?id_kategori=param
