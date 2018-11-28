@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.silva.pariwisata.R;
+import com.silva.pariwisata.model.database.PrefManager;
 import com.silva.pariwisata.view.fragment.ListSemuaTempatFragment;
 import com.silva.pariwisata.view.fragment.KategoriFragment;
 import com.silva.pariwisata.view.fragment.MapFragment;
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private boolean doubleBackToExitPressedOnce = false;
-
+    PrefManager prefManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,9 +58,12 @@ public class MainActivity extends AppCompatActivity
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_dashboard);
 
-        NavigationView navigationView =  findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        changeFragment(new KategoriFragment(), "Kategori Wisata");
+        changeFragment(new ListSemuaTempatFragment(), "Semua Wisata");
+
+
+        prefManager = new PrefManager(this);
     }
 
     public void Exit() {
@@ -138,7 +142,27 @@ public class MainActivity extends AppCompatActivity
             changeFragment(new MapFragment(), "Peta Wisata");
         } else if (id == R.id.nav_close) {
             Exit();
-        } else if (id ==R.id.nav_about) {
+        } else if (id == R.id.nav_login) {
+            if (prefManager.getPrefSring("user_id")==null){
+                Toast.makeText(getApplicationContext(), "Anda sudah login",Toast.LENGTH_LONG);
+            }else{
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setMessage("Yakin mau logout?");
+                builder.setCancelable(true);
+                builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        prefManager.setPrefSring("user_id",null);
+                    }
+                });
+                builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        } else if (id == R.id.nav_about) {
             Intent intent = new Intent(getApplicationContext(), TentangActivity.class);
             startActivity(intent);
         }

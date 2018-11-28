@@ -50,7 +50,11 @@
             android:label="@string/title_activity_detail_tempat"
             android:theme="@style/MyMaterialTheme.Base" />
         <activity android:name=".view.activity.MapsActivity" />
-        <activity android:name=".view.activity.TentangActivity"></activity>
+        <activity android:name=".view.activity.TentangActivity" />
+        <activity android:name=".view.activity.LoginActivity"></activity>
+        <activity android:name=".view.activity.KirimKomentarActivity"
+            android:theme="@style/MyMaterialTheme.Base"></activity>
+        <activity android:name=".view.activity.DaftarActivity"></activity>
     </application>
 
 </manifest>

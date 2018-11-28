@@ -2,13 +2,16 @@ package com.silva.pariwisata.view.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Path;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -28,17 +31,23 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.silva.pariwisata.R;
+import com.silva.pariwisata.adapter.ListKomentarAdapter;
+import com.silva.pariwisata.model.InterfaceKomentar;
 import com.silva.pariwisata.model.database.PrefManager;
+import com.silva.pariwisata.model.komentar.Getkomentar;
+import com.silva.pariwisata.model.komentar.Komentar;
+import com.silva.pariwisata.service.TambahKomentarService;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class DetailTempatActivity extends AppCompatActivity  implements OnMapReadyCallback , DirectionCallback {
 
     private ImageView imageView;
-    private TextView txtNama, txtKategori, txtDetail, txtAlamat, txtJadwal, txtHarga, txtTelepon, txtJarak, txtTiket;
+    private TextView txtNama, txtKategori, txtDetail, txtAlamat, txtJadwal, txtHarga, txtTelepon, txtJarak, txtTiket, txtKomentar;
     private String latitude, longitude;
     private Button btnRequestDirection;
     private GoogleMap googleMap;
@@ -46,6 +55,11 @@ public class DetailTempatActivity extends AppCompatActivity  implements OnMapRea
     private LatLng origin;
     private LatLng destination;
     private PrefManager prefManager;
+    private List<Komentar> dataKomentar = new ArrayList<>();
+    private RecyclerView list;
+    private ListKomentarAdapter adapterKomentar;
+    private RecyclerView.LayoutManager layoutManager;
+    private String id;
     String TAG = "map2";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +72,7 @@ public class DetailTempatActivity extends AppCompatActivity  implements OnMapRea
         getSupportActionBar().setTitle("");
         prefManager = new PrefManager(this);
 
+        id = getIntent().getStringExtra("id_wisata");
         String nama = getIntent().getStringExtra("nama_wisata");
         String kategori = getIntent().getStringExtra("kategori_wisata");
         String detail = getIntent().getStringExtra("detail_wisata");
@@ -90,6 +105,16 @@ public class DetailTempatActivity extends AppCompatActivity  implements OnMapRea
         txtKategori = findViewById(R.id.txtKategori);
         txtTelepon = findViewById(R.id.txtTelepon);
         txtTiket = findViewById(R.id.txtKategoriHarga);
+        txtKomentar = findViewById(R.id.keterangan_komentar);
+        list = findViewById(R.id.rv_main_doa_member);
+
+        getData();
+
+        adapterKomentar = new ListKomentarAdapter(dataKomentar);
+        list.setItemAnimator(new DefaultItemAnimator());
+        list.setLayoutManager(new LinearLayoutManager(this));
+        list.setAdapter(adapterKomentar);
+
 
         ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMapAsync(this);
         btnRequestDirection = findViewById(R.id.btn_request_direction);
@@ -131,6 +156,9 @@ public class DetailTempatActivity extends AppCompatActivity  implements OnMapRea
                 requestDirection();
             }
         });
+
+
+
     }
     public void showOnMap(View view) {
 //        Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
@@ -141,6 +169,15 @@ public class DetailTempatActivity extends AppCompatActivity  implements OnMapRea
         startActivity(intent);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getData();
+        adapterKomentar = new ListKomentarAdapter(dataKomentar);
+        list.setItemAnimator(new DefaultItemAnimator());
+        list.setLayoutManager(new LinearLayoutManager(this));
+        list.setAdapter(adapterKomentar);
+    }
 
     public void requestDirection() {
         Snackbar.make(btnRequestDirection, "Direction Requesting...", Snackbar.LENGTH_SHORT).show();
@@ -150,8 +187,6 @@ public class DetailTempatActivity extends AppCompatActivity  implements OnMapRea
                 .transportMode(TransportMode.TRANSIT)
                 .execute(this);
     }
-
-
     @Override
     public void onDirectionSuccess(Direction direction, String rawBody) {
         Snackbar.make(btnRequestDirection, "Success with status : " + direction.getStatus(), Snackbar.LENGTH_SHORT).show();
@@ -168,27 +203,52 @@ public class DetailTempatActivity extends AppCompatActivity  implements OnMapRea
             Snackbar.make(btnRequestDirection, direction.getStatus(), Snackbar.LENGTH_SHORT).show();
         }
     }
-
     @Override
     public void onDirectionFailure(Throwable t) {
         Snackbar.make(btnRequestDirection, "Koneksi terputus", Snackbar.LENGTH_SHORT).show();
     }
-
     private void setCameraWithCoordinationBounds(Route route) {
         LatLng southwest = route.getBound().getSouthwestCoordination().getCoordination();
         LatLng northeast = route.getBound().getNortheastCoordination().getCoordination();
         LatLngBounds bounds = new LatLngBounds(southwest, northeast);
         googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
     }
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
     }
-
     @Override
     public boolean onSupportNavigateUp() {
         finish();
         return true;
+    }
+
+    private void getData(){
+        new Getkomentar().get(this, id, new InterfaceKomentar() {
+            @Override
+            public void sukses(List<Komentar> komentarList) {
+                dataKomentar.clear();
+                dataKomentar.addAll(komentarList);
+                adapterKomentar.notifyDataSetChanged();
+                if (dataKomentar==null)
+                    txtKomentar.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void gagal() {
+
+            }
+        });
+    }
+
+    public void tambahKomentar(View view) {
+        if (prefManager.getPrefSring("user_id")!=null) {
+            Intent i = new Intent(getApplicationContext(), KirimKomentarActivity.class);
+            i.putExtra("id_wisata", id);
+            startActivity(i);
+        }else{
+            Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(i);
+        }
     }
 }

@@ -8,6 +8,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,7 @@ public class ListKategoriAdapter extends RecyclerView.Adapter<ListKategoriAdapte
         final Kategori kategori = kategoriList.get(position);
         holder.textView.setText(kategori.getNama_kategori());
         Picasso.with(context).load(Url.BASE_URL + kategori.getGambar_kategori()).placeholder(R.drawable.placeholder).into(holder.imageView);
+        Log.d("hasill", "onBindViewHolder: "+Url.BASE_URL + kategori.getGambar_kategori());
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

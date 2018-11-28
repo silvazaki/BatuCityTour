@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginLeft="8dp"
+    android:elevation="0.2dp"
+    card_view:cardCornerRadius="2dp"
+    card_view:contentPadding="3dp"
+    card_view:contentPaddingTop="5dp"
+    card_view:contentPaddingBottom="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="5dp"
+            android:text="Arika Untung - Malang, Indonesia"
+            android:textSize="@dimen/very_small"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/isi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/username"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/black"
+            android:textIsSelectable="true"
+            android:textSize="@dimen/mid_small" />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

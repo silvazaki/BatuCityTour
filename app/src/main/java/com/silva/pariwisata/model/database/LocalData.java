@@ -25,10 +25,6 @@ public class LocalData {
         return semuaList;
     }
 
-    public static void setSemuaList(List<Semua> semuaList) {
-        LocalData.semuaList = semuaList;
-    }
-
     public static List<Semua> semuaKategori = new ArrayList<>();
 
     public static List<Semua> getSemuaKategori() {

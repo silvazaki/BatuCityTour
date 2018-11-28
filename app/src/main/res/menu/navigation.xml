@@ -18,6 +18,10 @@
             android:icon="@drawable/ic_map"
             android:title="Map Online" />
 
+        <item
+            android:id="@+id/nav_login"
+            android:title="Logout" />
+
     </group>
 
     <!--<group android:checkableBehavior="none">-->

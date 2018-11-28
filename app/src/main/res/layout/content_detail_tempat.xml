@@ -301,17 +301,45 @@
                     </TableLayout>
 
                 </RelativeLayout>
-                <LinearLayout
+                <RelativeLayout
                     android:layout_below="@+id/judul"
                     android:layout_width="match_parent"
-                    android:layout_height="10dp"></LinearLayout>
-
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_margin="10dp"
+                        android:id="@+id/komentar"
+                        android:textStyle="bold"
+                        android:text="Komentar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:visibility="gone"
+                        android:layout_marginTop="4dp"
+                        android:layout_below="@+id/komentar"
+                        android:id="@+id/keterangan_komentar"
+                        android:text="Belum ada komentar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_below="@+id/keterangan_komentar"
+                        android:id="@+id/rv_main_doa_member"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <Button
+                        android:textColor="@color/white"
+                        android:onClick="tambahKomentar"
+                        android:layout_below="@+id/rv_main_doa_member"
+                        android:background="@color/colorAccent"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="6dp"
+                        android:text="Tambah Komentar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="6dp"></LinearLayout>
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

@@ -65,6 +65,7 @@ public class ListKategoriTempatAdapter extends RecyclerView.Adapter<ListKategori
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, DetailTempatActivity.class);
+                intent.putExtra("id_wisata", semua.getId_wisata());
                 intent.putExtra("nama_wisata", semua.getNama_wisata());
                 intent.putExtra("kategori_wisata", semua.getNama_kategori());
                 intent.putExtra("detail_wisata", semua.getDetail_wisata());

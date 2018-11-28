@@ -50,4 +50,17 @@
     <dimen name="app_bar_image_wh">100dp</dimen>
 
     <dimen name="feeds_adapter_feed_item_height">200dp</dimen>
+
+
+    <dimen name="mid">18sp</dimen>
+    <dimen name="mid_large">22sp</dimen>
+    <dimen name="small">14sp</dimen>
+    <dimen name="mid_small">16sp</dimen>
+    <dimen name="larg">28sp</dimen>
+    <dimen name="larg_mid">30sp</dimen>
+    <dimen name="very_larg">36sp</dimen>
+    <dimen name="very_small">12sp</dimen>
+    <dimen name="little">4sp</dimen>
+    <dimen name="small_margin">3dp</dimen>
+    <dimen name="margin">6dp</dimen>
 </resources>
