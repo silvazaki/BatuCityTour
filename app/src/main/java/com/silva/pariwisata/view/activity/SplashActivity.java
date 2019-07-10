@@ -18,6 +18,8 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splashscreen);
         prefManager = new PrefManager(this);
+        prefManager.setPrefSring("latitude", "-7.9517836");
+        prefManager.setPrefSring("longitude", "112.6074520");
         splash();
     }
 
@@ -26,13 +28,13 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 // TODO Auto-generated method stub
-                if (prefManager.isFirstTimeLaunch()){
-                    Intent i = new Intent(SplashActivity.this, IntroActivity.class);
-                    startActivity(i); // menghubungkan activity splashscren ke main activity dengan intent
-                }else {
+//                if (prefManager.isFirstTimeLaunch()){
+//                    Intent i = new Intent(SplashActivity.this, IntroActivity.class);
+//                    startActivity(i); // menghubungkan activity splashscren ke main activity dengan intent
+//                }else {
                     Intent i = new Intent(SplashActivity.this, MainActivity.class);
                     startActivity(i); // menghubungkan activity splashscren ke main activity dengan intent
-                }
+//                }
                 //jeda selesai Splashscreen
                 this.finish();
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
